@@ -8,12 +8,11 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.log4j.Logger;
 
 
 public class KafkaExProducer 
 {
-	private static final Logger logger = Logger.getLogger(KafkaExProducer.class);
+	//private static final Logger logger = Logger.getLogger(KafkaExProducer.class);
 	private static final String producerTopic = "test-topic";
 	private static Scanner scanner;
 	
@@ -34,12 +33,12 @@ public class KafkaExProducer
             {
         		 ProducerRecord data = new ProducerRecord<String, String>(producerTopic, line);
         		 Future<RecordMetadata> recordMetadata = producer.send(data);
-        		 logger.info("topic="+producerTopic + ", value=" + line);
+        		 System.out.println("topic="+producerTopic + ", value=" + line);
         		 line = scanner.nextLine();
             }
         	
         }
-        catch(Exception e) { logger.error(e.getMessage());  }
+        catch(Exception e) { System.out.println(e.getMessage());  }
         finally 
         {
         	scanner.close();

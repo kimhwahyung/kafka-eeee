@@ -8,11 +8,10 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.log4j.Logger;
 
 public class KafkaExConsumer 
 {
-	private static final Logger logger = Logger.getLogger(KafkaExConsumer.class);
+	//private static final Logger logger = Logger.getLogger(KafkaExConsumer.class);
 	private static final String ConsumerTopic = "test-topic";
 	
 	public static void main(String[] args) throws Exception 
@@ -29,7 +28,7 @@ public class KafkaExConsumer
         KafkaConsumer<String, String> kafConsumer = new KafkaConsumer<String, String>(consumerProp);
 
         kafConsumer.subscribe(topicList);
-        logger.info("Subscribed to topic " + ConsumerTopic);
+        System.out.println("Subscribed to topic " + ConsumerTopic);
 
         try 
         {
@@ -38,14 +37,14 @@ public class KafkaExConsumer
             	ConsumerRecords<String, String> records = kafConsumer.poll(500);
                 for (ConsumerRecord<String, String> record : records)
                 {
-                    logger.info("offset=" + record.offset() + ", key=" + record.key() + ", value=" + record.value());
+                	System.out.println("offset=" + record.offset() + ", key=" + record.key() + ", value=" + record.value());
                 }
 
                 kafConsumer.commitSync();
               
             }
         } 
-        catch (Exception ex) {  logger.error(ex.getMessage()); } 
+        catch (Exception ex) {  System.out.println(ex.getMessage()); } 
         finally
         {
             try { kafConsumer.commitSync();  } 
